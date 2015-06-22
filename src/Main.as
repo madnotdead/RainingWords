@@ -2,7 +2,7 @@ package
 {	
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
-	import worlds.IntroWorld;
+	import worlds.*;
 	/**
 	 * ...
 	 * @author madnotdead
@@ -21,7 +21,8 @@ package
 			super.init();
 			trace("game initialized");
 			
-			FP.world = new IntroWorld();
+			//FP.world = new IntroWorld();
+			FP.world = new GameOverWorld(10000);
 			FP.console.enable();
 			FP.console.toggleKey = 188;
 		}

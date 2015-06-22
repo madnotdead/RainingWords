@@ -5,6 +5,7 @@ package worlds
 	import misc.Constants;
 	import misc.Utils;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -20,29 +21,40 @@ package worlds
 		private var gameTimeCounter:Number = 0;
 		private var speed:Number = Constants.INITIAL_SPEED;
 		public var allowedPassed:int = 5;
+		private var _background:Image = null;
+		private var _cloudImage:Image = null;
+		
 		public function GameWorld() 
 		{
 			FP.screen.color = 0x330000;
 			GameScore = new Score(FP.screen.width - 100, FP.screen.height - 50);
+			_background = new Image(Assets.PLAY);
+			_cloudImage = new Image(Assets.CLOUD);
+			_cloudImage.x = (FP.screen.width - _cloudImage.scaledWidth) / 2;
+			_cloudImage.y = -50;
 		}
 		
 		override public function begin():void 
 		{
 			super.begin();
+			addGraphic(_background,100);
+			addGraphic(_cloudImage);
 			add(GameScore);
+			
 			DefineKeysString();
 		}
 		override public function update():void 
 		{
 			super.update();
-			
+			//if (Input.pressed(Key.BACKSPACE))
+				//FP.world = new GameOverWorld(10);
 			gameTimeCounter += FP.elapsed;
 			
 			if (gameTimeCounter > gameTime)
 			{
 				var wordTypeRandom:Number = Utils.randomRange(0, 200);
 				
-				var wordType:String = (wordTypeRandom > 190) ? Constants.WORD_MULTIPLE : Constants.WORD_SIMPLE;
+				var wordType:String = (wordTypeRandom > 180) ? Constants.WORD_MULTIPLE : Constants.WORD_SIMPLE;
 				
 				//var wordText:String = null;
 				
@@ -54,7 +66,7 @@ package worlds
 				}
 				else
 				{
-					add(new Word(Utils.randomRange(0, FP.screen.width - 32), 0, speed, Constants.WORD_MULTIPLE, getWordByNumber(Utils.randomRange(1, 4))));
+					add(new Word(Utils.randomRange(0, FP.screen.width - 64), 0, speed, Constants.WORD_MULTIPLE, getWordByNumber(Utils.randomRange(1, 4))));
 					speed += Constants.SPEED_MULTIPLE_MODIFIER;
 				}
 				

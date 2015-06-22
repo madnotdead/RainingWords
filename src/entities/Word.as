@@ -1,6 +1,7 @@
 package entities 
 {
 	import misc.Constants;
+	import misc.Utils;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
@@ -25,23 +26,28 @@ package entities
 		private var _wordInputText:String = null;
 		private var _textOwner:Entity = null;
 		private var _arrayWord:Array = null;
+		private var _image:Image = null;
+		private var _offSet:Number = 5;
 		public function Word(x:Number=0, y:Number=0, speed:Number = 0, wordType:String = "", wordText:String = "", graphic:Graphic=null, mask:Mask=null) 
 		{
 			_wordType = wordType;
 			
 			_speedY = speed;
-			_wordText = new Text(wordText, x + 10, y + 10);
+			_wordText = new Text(wordText, x + _offSet, y + _offSet);
+			//_wordText = new Text(wordText, x , y );
 			_wordInputText = _wordText.text;
 			mask = new Pixelmask(Assets.WORD_IMAGE);
 			
 			if (wordType == Constants.WORD_SIMPLE)
-				graphic = new Image(Assets.WORD_IMAGE);
+				_image = new Image(Assets.WORD_IMAGE);
 			else
 			{
-				graphic = new Image(Assets.WORDS_IMAGE);	
+				_image = new Image(Assets.WORDS_IMAGE);	
 				_arrayWord = _wordInputText.split("");
 			}
 				
+			//_image.angle = _wordText.angle = Utils.randomRange(0, 90);
+			graphic = _image;
 			super(x, y, graphic, mask);
 		}
 		
@@ -55,7 +61,8 @@ package entities
 			super.update();
 			
 			y += _speedY * FP.elapsed;
-			_wordText.y = y + 10;
+			_wordText.y = y + _offSet;
+			//_wordText.y = y;
 			
 			if (_wordType == Constants.WORD_SIMPLE)
 			{

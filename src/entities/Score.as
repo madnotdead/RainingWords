@@ -17,6 +17,7 @@ package entities
 		{
 			graphic = new Text("Score: " + _score);
 			//Text(graphic).scale = 2;
+			layer = 50;
 			super(x, y, graphic, mask);
 		}
 		
