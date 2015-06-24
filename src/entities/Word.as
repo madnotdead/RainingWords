@@ -9,6 +9,7 @@ package entities
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.Mask;
 	import net.flashpunk.masks.Pixelmask;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import worlds.GameWorld;
@@ -28,6 +29,8 @@ package entities
 		private var _arrayWord:Array = null;
 		private var _image:Image = null;
 		private var _offSet:Number = 5;
+		private var _soundGood:Sfx = null;
+		private var _soundBad:Sfx = null;
 		public function Word(x:Number=0, y:Number=0, speed:Number = 0, wordType:String = "", wordText:String = "", graphic:Graphic=null, mask:Mask=null) 
 		{
 			_wordType = wordType;
@@ -48,6 +51,8 @@ package entities
 				
 			//_image.angle = _wordText.angle = Utils.randomRange(0, 90);
 			graphic = _image;
+			_soundGood = new Sfx(Assets.WORD_SOUND_GOOD);
+			_soundBad = new Sfx(Assets.WORD_SOUND_BAD);
 			super(x, y, graphic, mask);
 		}
 		
@@ -70,8 +75,10 @@ package entities
 				{
 					trace("WordText: " + _wordInputText);
 					GameWorld(FP.world).GameScore.AddScore(5);
+					_soundGood.play();
 					FP.world.remove(_textOwner);
 					FP.world.remove(this);
+					
 				}
 			}
 			else
@@ -89,6 +96,7 @@ package entities
 					
 					if (_arrayWord.length == 0)
 					{
+						_soundGood.play();
 						GameWorld(FP.world).GameScore.AddScore(10);
 						FP.world.remove(_textOwner);
 						FP.world.remove(this);
@@ -99,7 +107,9 @@ package entities
 
 			if ( y + 16 >= FP.screen.height)
 			{
+				_soundBad.play();
 				FP.world.remove(this);
+				_wordText.color = 0xFF3300;
 				GameWorld(FP.world).allowedPassed--;
 			}
 		}

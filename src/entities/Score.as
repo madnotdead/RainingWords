@@ -16,7 +16,7 @@ package entities
 		public function Score(x:Number=0, y:Number=0, graphic:Graphic=null, mask:Mask=null) 
 		{
 			graphic = new Text("Score: " + _score);
-			//Text(graphic).scale = 2;
+			Text(graphic).scale = 2;
 			layer = 50;
 			super(x, y, graphic, mask);
 		}

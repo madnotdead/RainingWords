@@ -26,6 +26,18 @@ package
 		
 		[Embed(source = "../assets/image/cloud.png")]
 		public static const CLOUD:Class;
+		
+		[Embed(source="../assets/audio/main2.mp3")]
+		public static const MAIN:Class;
+		
+		[Embed(source="../assets/audio/word_good.mp3")]
+		public static const WORD_SOUND_GOOD:Class;
+		
+		[Embed(source="../assets/audio/word_bad.mp3")]
+		public static const WORD_SOUND_BAD:Class;
+		
+		[Embed(source="../assets/image/instructions_holder.png")]
+		public static const INSTRUCTIONS:Class;
 	}
 
 }

@@ -4,6 +4,7 @@ package worlds
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.ColorTween;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
@@ -20,10 +21,14 @@ package worlds
 		private var _pressText:Text = null;
 		private var _pressColorTween:ColorTween = null;
 		private var _holder:Image = null;
+		
+
+		
 		public function IntroWorld() 
 		{
 			super();		
 			FP.screen.color = 0x0066FF;
+
 		}
 		
 		override public function begin():void 
@@ -63,7 +68,7 @@ package worlds
 			_pressText.color = _pressColorTween.color;
 			
 			if (Input.pressed(Key.ANY))
-				FP.world = new GameWorld();
+				FP.world = new InstructionWorld();
 		}
 		
 	}

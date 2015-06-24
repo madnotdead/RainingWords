@@ -6,6 +6,7 @@ package worlds
 	import misc.Utils;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -23,15 +24,19 @@ package worlds
 		public var allowedPassed:int = 5;
 		private var _background:Image = null;
 		private var _cloudImage:Image = null;
+		private var _mainTheme:Sfx = null;
 		
 		public function GameWorld() 
 		{
 			FP.screen.color = 0x330000;
-			GameScore = new Score(FP.screen.width - 100, FP.screen.height - 50);
+			GameScore = new Score(FP.screen.width - 200, FP.screen.height - 40);
 			_background = new Image(Assets.PLAY);
 			_cloudImage = new Image(Assets.CLOUD);
 			_cloudImage.x = (FP.screen.width - _cloudImage.scaledWidth) / 2;
 			_cloudImage.y = -50;
+			
+			_mainTheme = new Sfx(Assets.MAIN);
+			_mainTheme.loop();
 		}
 		
 		override public function begin():void 
@@ -74,7 +79,10 @@ package worlds
 			}
 			
 			if (allowedPassed <= 0)
+			{
+				_mainTheme.stop();
 				FP.world = new GameOverWorld(GameScore.GetScore);
+			}
 
 		}
 		
